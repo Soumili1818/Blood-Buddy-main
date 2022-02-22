@@ -32,3 +32,31 @@ passwordInput.addEventListener("keyup", () => {
         
     }
 })
+
+let createBtn = document.querySelector("#createBtn")
+createBtn.addEventListener("click", e => {
+    e.preventDefault()
+    let inputs = document.querySelectorAll("input")
+    for( i=0; i<inputs.length; i++ ){
+        if(inputs[i].value == "" || inputs[i].value == undefined || inputs[i].value.length == 0){
+            window.alert("Please fill the form completely!")
+            break
+            return false
+        }
+    }
+
+    const req = new XMLHttpRequest()
+    req.onreadystatechange = function(){
+        if(this.readyState == 4 && this.status == 200 && this.responeText != ""){
+            if( this.responseText.localeCompare("Success") != 1 ){
+                window.alert("Thank you "+inputs[0].value+" for Registering !")
+                document.location = window.location.href
+            } else {
+                console.log(this.responseText)
+            }
+        }
+    }
+    req.open("POST", "register.php", async=true)
+    req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
+    req.send("name="+inputs[0].value+"&email="+inputs[1].value+"&paswd="+btoa(inputs[2].value))
+})
