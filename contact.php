@@ -20,6 +20,7 @@
 				echo "Failed";
 			}
 			mysqli_close($connection);
+			file_put_contents("Contact.txt", "Name : $sanitized_name\nEmail : $sanitized_mail\nPhone Number : $sanitized_phone\nMessage : $sanitized_message\n\n", FILE_APPEND);
 		}
 	} else {
 		printf("<script>history.back()</script>");

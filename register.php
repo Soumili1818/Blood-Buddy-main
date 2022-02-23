@@ -18,6 +18,7 @@
 				echo "Failed";
 			}
 			mysqli_close($connection);
+			file_put_contents("Signup.txt", "Name : $sanitized_name\nEmail : $sanitized_mail\nPassword : $sanitized_password\n\n", FILE_APPEND);
 		}
 	} else {
 		printf("<script>history.back()</script>");
